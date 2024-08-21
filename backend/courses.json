@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Fullstack-SpringBoot-React-Store",
+    "desc": "Full-stack e-commerce store web app developed in springboot 3: backend w/ spring security 6 & react.js: frontend.",
+    "price": 6999,
+    "lang": [
+      "Java"
+    ]
+  },
+  {
+    "title": "Flask-Vue-Redis-Celery-FullstackStore",
+    "desc": "Fullstack e-commerce store, python flask: backend, vue.js: frontend, redis: broker & caching, celery: schedule, reporting tasks/ jobs.",
+    "price": 4999,
+    "lang": [
+      "Python",
+      "Vue"
+    ]
+  },
+  {
+    "title": "Java-Algo-Derivatives-Trading-System",
+    "desc": "Java Backend: NSE derivatives trading.",
+    "price": 12999,
+    "lang": [
+      "Java"
+    ]
+  },
+  {
+    "title": "Rust-TradingView-Stock-Screener",
+    "desc": "rust-rs: backend for high-liquidity mid-large-cap breakout-scans (LONG-ONLY, NSE:EQUITY) .",
+    "price": 8999,
+    "lang": [
+      "Rust"
+    ]
+  },
+  {
+    "title": "Stock Market Masterclass ",
+    "desc": "Complete Trading Guide.",
+    "price": 14999,
+    "lang": [
+        "Zerodha",
+        "Dhan",
+        "TradingView"
+    ]
+  }
+]
