@@ -13,14 +13,26 @@ export default function Courses(){
         .then(data =>setCourses(data))
     },[])
 
-    const [cartItems, setCartItems] = useRecoilState(cartAtom);
-    const addToCart = (x) =>{
-        console.log('here')
-        setCartItems(prevCartItems => [...prevCartItems, x]);
-    }
+    const [cart, setCart] = useRecoilState(cartAtom);
+
+    const addToCart = (x) => {
+        const itemToAdd = { ...x, quantity: 1 };
+    
+        setCart(prevCart => {
+            const itemIndex = prevCart.findIndex(item => item.title === itemToAdd.title);
+    
+            if (itemIndex !== -1) {
+                const cartCopy = [...prevCart];
+                cartCopy[itemIndex] = {...cartCopy[itemIndex], quantity: cartCopy[itemIndex].quantity + 1};
+                return cartCopy;
+            } else {
+                return [...prevCart, itemToAdd];
+            }
+        });
+    };
 
     return (
-        <div className="bg-gray-100 p-6">
+        <div className="bg-gray-200 p-6 pt-24 min-h-screen">
         <div className='text-center text-2xl text-black pb-12 pt-8 sm:pt-auto'>Courses</div>
         <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -44,7 +56,7 @@ export default function Courses(){
                         <span className="text-gray-700">{x.lang.join(', ')}</span>
                     </div>
                     <div>
-                        <button className="bg-blue-500 text-white px-5 py-2 border rounded hover:bg-blue-600" onClick={() => addToCart(x)}>BUY</button>
+                        <button className="bg-blue-500 text-white px-5 py-2 border rounded hover:bg-blue-600" onClick={() => addToCart(x)}>ADD TO CART</button>
                     </div>
                 </div>
             </div>
