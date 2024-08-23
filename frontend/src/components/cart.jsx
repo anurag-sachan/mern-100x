@@ -2,32 +2,54 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import { cartAtom } from '../atoms/cartAtom';
 
 export default function Cart(){
-    // const cart = useRecoilValue(cartAtom);
     const [cart, setCart] = useRecoilState(cartAtom)
 
     let total = 0;
     cart.forEach(x => {
-        total += (x.price * (x.quantity || 1));
+        total += (x.price * (x.quantity));
     });
     
     function decQuantity(index) {
-        const cartCopy = [...cart];
-        if(cartCopy[index].quantity === 1){
-            removeFromCart(index);
-            return;
-        }
-        cartCopy[index] = {...cartCopy[index], quantity: (cartCopy[index].quantity -1)};
-        setCart(cartCopy);
+    //     const cartCopy = [...cart];
+    //     if(cartCopy[index].quantity === 1){
+    //         removeFromCart(index);
+    //         return;
+    //     }
+    //     cartCopy[index] = {...cartCopy[index], quantity: (cartCopy[index].quantity -1)};
+    //     setCart(cartCopy);
+    // }
+        setCart(prevCart =>{
+            // prevCart is better than cart because it ensures you're always working with the latest state and reduces the risk of bugs related to stale state
+            const cartCopy = [...prevCart];
+            if(cartCopy[index].quantity === 1){
+                // State updater functions provided to Recoil must be pure functions.
+                // removeFromCart(index);
+                // return;
+                cartCopy.splice(index,1);
+                return cartCopy;
+            }else{
+                cartCopy[index] = {...cartCopy[index], quantity: cartCopy[index].quantity-1};
+                return cartCopy;
+            }
+        })
     }
 
     function incQuantity(index){
-        const cartCopy = [...cart];
-        cartCopy[index] = {...cartCopy[index], quantity: (cartCopy[index].quantity +1)};
-        setCart(cartCopy);
+        setCart(prevCart =>{
+            const cartCopy = [...prevCart];
+            cartCopy[index] = {...cartCopy[index], quantity: cartCopy[index].quantity+1};
+            return cartCopy;
+        })
+        // const cartCopy = [...cart];
+        // cartCopy[index] = {...cartCopy[index], quantity: (cartCopy[index].quantity +1)};
+        // setCart(cartCopy);
     }
 
     function removeFromCart(index){
-        setCart(prevCart =>{
+        // const cartCopy = [...cart];
+        // cartCopy.splice(index,1);
+        // setCart(cartCopy);
+        setCart(prevCart => {
             const cartCopy = [...prevCart];
             cartCopy.splice(index,1);
             return cartCopy;
