@@ -37,7 +37,7 @@ export default function Courses(){
         <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {courses.map(x=>{
-            const cartItem= cart.find(cartItem => cartItem.title === x.title);
+            const cartItem= cart.find(i => i.title === x.title);
             const quantity= cartItem? cartItem.quantity : 0;
 
                 return(
