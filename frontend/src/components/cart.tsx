@@ -1,15 +1,21 @@
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 import { cartAtom } from '../atoms/cartAtom';
 
+interface CartItem{
+    title: string,
+    quantity: number,
+    price: number
+}
+
 export default function Cart(){
-    const [cart, setCart] = useRecoilState(cartAtom)
+    const [cart, setCart] = useRecoilState<CartItem[]>(cartAtom)
 
     let total = 0;
     cart.forEach(x => {
         total += (x.price * (x.quantity));
     });
     
-    function decQuantity(index) {
+    function decQuantity(index:number) {
     //     const cartCopy = [...cart];
     //     if(cartCopy[index].quantity === 1){
     //         removeFromCart(index);
@@ -34,7 +40,7 @@ export default function Cart(){
         })
     }
 
-    function incQuantity(index){
+    function incQuantity(index:number){
         setCart(prevCart =>{
             const cartCopy = [...prevCart];
             cartCopy[index] = {...cartCopy[index], quantity: cartCopy[index].quantity+1};
@@ -45,7 +51,7 @@ export default function Cart(){
         // setCart(cartCopy);
     }
 
-    function removeFromCart(index){
+    function removeFromCart(index:number){
         // const cartCopy = [...cart];
         // cartCopy.splice(index,1);
         // setCart(cartCopy);
