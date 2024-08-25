@@ -3,8 +3,14 @@ import { cartAtom } from '../atoms/cartAtom';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+interface CartItem{
+    title: string,
+    quantity: number,
+    price: number
+}
+
 export default function CartPopUp() {
-    const cart = useRecoilValue(cartAtom);
+    const cart = useRecoilValue<CartItem[]>(cartAtom);
     const [showCart, setShowCart] = useState(false);
     
     let total = 0;

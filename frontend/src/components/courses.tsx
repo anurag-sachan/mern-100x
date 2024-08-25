@@ -2,8 +2,21 @@ import { useEffect, useState } from "react"
 import { useRecoilState } from 'recoil';
 import {cartAtom} from '../atoms/cartAtom'
 
+interface Course{
+    title: string,
+    desc: string,
+    lang: string[],
+    price: number
+}
+
+interface CartItem{
+    title: string,
+    quantity: number,
+    price: number
+}
+
 export default function Courses(){
-    const [courses, setCourses] = useState([])
+    const [courses, setCourses] = useState<Course[]>([])
 
     const base_url = 'http://localhost:3001';
 
@@ -13,9 +26,9 @@ export default function Courses(){
         .then(data =>setCourses(data))
     },[])
 
-    const [cart, setCart] = useRecoilState(cartAtom);
+    const [cart, setCart] = useRecoilState<CartItem[]>(cartAtom);
 
-    const addToCart = (x) => {
+    const addToCart = (x:Course) => {
         const itemToAdd = { ...x, quantity: 1 };
     
         setCart(prevCart => {
